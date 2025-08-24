@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  rabbitmq:
+    image: rabbitmq:3.9-management # Uses RabbitMQ with management UI
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"  # AMQP port for applications to connect
+      - "15672:15672" # Management UI port (accessible via http://localhost:15672)
+    environment:
+      RABBITMQ_DEFAULT_USER: guest # Default username
+      RABBITMQ_DEFAULT_PASS: guest # Default password
+    healthcheck: # Health check to ensure RabbitMQ is ready
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
