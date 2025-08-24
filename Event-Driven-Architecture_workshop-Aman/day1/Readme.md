@@ -132,11 +132,9 @@ After sending the `curl` command, you will see immediate output in your Producer
 The producer log will show that it has received the API request and published the event.
 
 ![Producer](screenshots/img.png)
-```
-```
+
 ### Consumer Terminal Output
 
 The consumer log will show that it has received the event from RabbitMQ and processed it. This is the proof that the system is working.
 
 ![Consumer](screenshots/img_1.png)
-```
