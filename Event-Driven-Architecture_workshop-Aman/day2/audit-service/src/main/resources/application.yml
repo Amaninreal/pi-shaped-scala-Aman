@@ -1,0 +1,19 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: audit-service
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      # CRITICAL: This consumer group ID is unique to this service
+      group-id: audit-service-group
+      auto-offset-reset: earliest
+      # Key is a simple string
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      # Value is a complex object, so we use Spring's JSON deserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        # IMPORTANT: Tell the JSON deserializer which packages to trust for conversion
+        spring.json.trusted.packages: "com.pishaped.event.model"

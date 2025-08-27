@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- 1. CORRECT PARENT: Inherit from your project's root POM. -->
+    <parent>
+        <groupId>com.pishaped</groupId>
+        <artifactId>day2</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <!-- 2. ARTIFACT ID: This will be either 'audit-service' or 'notification-service'. -->
+    <artifactId>notification-service</artifactId>
+    <name>notification-service</name>
+    <description>Notification Service consumer for Kafka events</description>
+
+    <dependencies>
+        <!-- 3. ADD DEPENDENCY ON THE SHARED LIBRARY -->
+        <!-- This is how the service knows about UserEvent and the deserializer. -->
+        <dependency>
+            <groupId>com.pishaped</groupId>
+            <artifactId>event-model-lib</artifactId>
+        </dependency>
+
+        <!-- Spring Boot Starter for core functionality. Version is managed by the parent. -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+
+        <!-- Spring Kafka. Version is managed by the parent. -->
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+        </dependency>
+
+        <!-- Jackson dependency for the custom deserializer. Version is managed by the parent. -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
+
+        <!-- Lombok for boilerplate code reduction -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <!-- Test Dependencies -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <!-- 4. SIMPLIFIED BUILD: The Spring Boot parent POM provides the necessary plugin config. -->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
